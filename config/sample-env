@@ -3,7 +3,6 @@
 OCI_CONFIG_FILE="~/.oci/config"
 CONFIG_PROFILE="DEFAULT"
 AUTH_TYPE="API_KEY"
-JDBC_AUTH_TYPE="OCI_API_KEY"
 
 JDBC_DRIVER_CLASS_NAME = "com.simba.spark.jdbc.Driver"
 JDBC_URL = "jdbc:spark://gateway.datalake.us-ashb........"

@@ -14,7 +14,6 @@ load_dotenv(PROJECT_ROOT  / "config/env") # expects OCI_ vars in env
 # AIDP JDBC Connectivity
 # ───────────────────────────────────────────────────────
 OCI_CONFIG_FILE       	= os.getenv("OCI_CONFIG_FILE")
-JDBC_AUTH_TYPE 			= os.getenv("AUTH_TYPE")
 JDBC_DRIVER_CLASS_NAME  = os.getenv("JDBC_DRIVER_CLASS_NAME")
 JDBC_URL       			= os.getenv("JDBC_URL")
 
