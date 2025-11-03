@@ -15,7 +15,7 @@ load_dotenv(PROJECT_ROOT  / "config/env") # expects OCI_ vars in env
 # ───────────────────────────────────────────────────────
 OCI_CONFIG_FILE       	= os.getenv("OCI_CONFIG_FILE")
 JDBC_AUTH_TYPE 			= os.getenv("AUTH_TYPE")
-JAVA_HOME       		= os.getenv("JAVA_HOME")
+# JAVA_HOME       		= os.getenv("JAVA_HOME")
 JDBC_DRIVER_CLASS_NAME  = os.getenv("JDBC_DRIVER_CLASS_NAME")
 JDBC_URL       			= os.getenv("JDBC_URL")
 
