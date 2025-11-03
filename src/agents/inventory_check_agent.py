@@ -14,8 +14,6 @@ import jpype
 
 def inventory_check():
 
-    # os.environ["JAVA_HOME"] = JAVA_HOME
-
     JDBC_DRIVER_PATH = f"{PROJECT_ROOT}/config/SparkJDBC42.jar"
 
     connection_properties = {
