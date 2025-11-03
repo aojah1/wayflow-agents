@@ -36,8 +36,6 @@ def inventory_check():
         cursor = conn.cursor()
 
         # Execute SQL queries
-        # cursor.execute("SELECT count(*) FROM fdi_idl_catalog.default.dw_internal_org_d")
-        # cursor.execute("SELECT count(*) FROM fdi_idl_catalog.default.dw_inventory_item_d")
         with open(SQL_PATH, "r") as f:
             sql_script = f.read()
         item_number = "AS6647431"
