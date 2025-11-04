@@ -2,9 +2,33 @@
 from typing import Dict, Any
 import base64
 import json
+from wayflowcore.agent import Agent
+from wayflowcore.executors.executionstatus import (
+    FinishedStatus,
+    UserMessageRequestStatus,
+)
+from wayflowcore.tools import tool
 from langchain_core.messages import HumanMessage, SystemMessage
 from src.llm.oci_genai_vision import initialize_llm
 from src.data.sales_order import Transaction as data_structure
+import os
+from pathlib import Path
+
+@tool(description_mode="only_docstring")
+def image_to_text_tool(query: str) -> str:
+    """Tool that is invoked for a image .jpg file detailing the order, and returns the tool name.
+
+    Parameters
+    ----------
+    query:
+        file type
+
+    Returns
+        -------
+        tool name
+
+    """
+    return "image_to_text_tool"
 
 # Load and encode your image (local file)
 def encode_image_as_base64(image_path):
@@ -13,12 +37,6 @@ def encode_image_as_base64(image_path):
     return encoded
 
 def image_to_text(image_path:str, question:str) -> str:
-    """
-     a tool to convert image to text
-    :param image_path:
-    :param question:
-    :return:
-    """
 
     # Encode image
     image_base64 = encode_image_as_base64(image_path)
@@ -47,10 +65,7 @@ def image_to_text(image_path:str, question:str) -> str:
     #print(response.content)
     return response.content
 
-def test_image_to_text():
-    import os
-    from pathlib import Path
-
+def test_image_to_text() -> str:
     THIS_DIR = Path(__file__).resolve()
     PROJECT_ROOT = THIS_DIR.parent.parent.parent
 
