@@ -1,9 +1,5 @@
 
 from wayflowcore.agent import Agent
-from wayflowcore.executors.executionstatus import (
-    FinishedStatus,
-    UserMessageRequestStatus,
-)
 from wayflowcore.tools import tool
 from wayflowcore.models import OCIGenAIModel
 from src.llm.oci_genai import initialize_llm
