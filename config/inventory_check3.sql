@@ -1,5 +1,10 @@
     SELECT
-        SUM(ohd.primary_transaction_quantity) AS available_quantity
+        SUM(ohd.primary_transaction_quantity) AS available_quantity,
+        item.item_number                      AS item_number,
+        org.organization_code                 AS inv_organization_code,
+        org.organization_id,
+        subinv.secondary_inventory_name       AS secondary_inventory_name,
+        bu.business_unit_name                 AS business_unit_name
     FROM
         fdi_idl_catalog.default.dw_inventory_item_d      item          /* Dim_DW_INVENTORY_ITEM_D */,
         fdi_idl_catalog.default.dw_inv_subinventory_d    subinv        /* Dim_DW_INV_SUBINVENTORY_D */,

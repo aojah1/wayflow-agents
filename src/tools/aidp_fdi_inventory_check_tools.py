@@ -28,14 +28,6 @@ def aidp_fdi_inventory_check_impl(item_number: str, item_required_quantity: int,
 
     SQL_PATH = f"{PROJECT_ROOT}/config/inventory_check3.sql"
 
-    print(item_number)
-
-    print(item_required_quantity)
-
-    print(bu)
-
-    print(question)
-
     connection_properties = {
         "oracle.jdbc.authenticationMethod": AUTH_TYPE, 
         "oracle.jdbc.oci.config.file": OCI_CONFIG_FILE,
@@ -61,19 +53,22 @@ def aidp_fdi_inventory_check_impl(item_number: str, item_required_quantity: int,
         ]
         cursor.execute(sql_script, parameters[0])
         results = cursor.fetchall()
+        print(f"DB SQL Output {results}")
+        for row in results:
+            db_output = print(row[0])
         print("Tool Output")
-        print(results)
+        print(row[0])
 
     except jaydebeapi.Error as e:
         print(f"Error connecting to database: {e}")
 
     finally:
-        if 'cursor' in locals() and cursor:
+        if cursor:
             cursor.close()
-        if 'conn' in locals() and conn:
+        if conn:
             conn.close()
 
-    return results
+    return row[0]
 
 # ---------- test / demo ----------
 def test():
@@ -107,7 +102,7 @@ def test():
 
     if isinstance(status, UserMessageRequestStatus):
         assistant_reply = convo.get_last_message()
-        print(f"---\nAIDP Inventory Check Tool >>> {assistant_reply.content}\n---")
+        print(f"---\nAIDP Inventory Available? >>> {assistant_reply.content}\n---")
     else:
         print(f"Invalid execution status, expected UserMessageRequestStatus, received {type(status)}")
 

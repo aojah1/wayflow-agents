@@ -27,7 +27,9 @@ def inventory_check():
         "If available_quantity is more than item_required_quantity, then respond Yes \n"
         "If available_quantity is less than item_required_quantity, then respond No \n"
         "Return only Yes or No \n"
-    )
+    )   
+
+    # print(aidp_fdi_inventory_check_impl(item_number=item_number, item_required_quantity=item_required_quantity, bu=bu, question=question)) 
 
     conversation = assistant.start_conversation()
     user_msg = f"item_number: {item_number}\nitem_required_quantity: {item_required_quantity}\nbu: {bu}\nquestion: {question}"
@@ -38,7 +40,7 @@ def inventory_check():
 
     if isinstance(status, UserMessageRequestStatus):
         assistant_reply = conversation.get_last_message()
-        print(f"---\nAIDP Inventory Check Tool >>> {assistant_reply.content}\n---")
+        print(f"---\nAIDP Inventory Available? >>> {assistant_reply.content}\n---")
     else:
         print(f"Invalid execution status, expected UserMessageRequestStatus, received {type(status)}")
 
