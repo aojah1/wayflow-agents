@@ -20,7 +20,7 @@ def inventory_check():
     )
 
     item_number = "AS6647431"
-    item_required_quantity = 2000
+    item_required_quantity = 9000
     bu = "US1 Business Unit"   
     question = (
         "Check the available_quantity returned by the tool\n"
@@ -28,6 +28,9 @@ def inventory_check():
         "If available_quantity is less than item_required_quantity, then respond No \n"
         "Return only Yes or No \n"
     )   
+
+    print(f"--------\nItem Number >>> {item_number}\n--------")
+    print(f"--------\nQuantity requested >>> {item_required_quantity}\n--------")
 
     # print(aidp_fdi_inventory_check_impl(item_number=item_number, item_required_quantity=item_required_quantity, bu=bu, question=question)) 
 
