@@ -9,9 +9,6 @@ from wayflowcore.models import OCIGenAIModel
 from src.llm.oci_genai import initialize_llm
 from src.tools.order_create_tools import create_order
 
-import re
-from typing import List, Dict, Any
-
 def order_create_intake(user_msg: str):
 
     llm = initialize_llm()
@@ -21,13 +18,6 @@ def order_create_intake(user_msg: str):
         tools=[create_order],
         llm=llm
     )
-
-    # Test Payload
-    payload = {
-        "title": "foo",
-        "body": "bar",
-        "userId": 1,
-    }
 
     conversation = assistant.start_conversation()
     conversation.append_user_message(user_msg)
