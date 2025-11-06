@@ -13,3 +13,8 @@ OCI_GENAI_ENDPOINT="https://inference.generativeai.us-..."
 OCI_GENAI_MODEL_ID_VISION="meta.llama-4-maverick-17b-128e-instruct-fp8"
 OCI_GENAI_MODEL_ID="xai.grok-4"
 PROVIDER="meta"
+
+# ─── Fusion Env --------
+API_USER = ""
+API_PASS = ""
+API_URL = "https://....."

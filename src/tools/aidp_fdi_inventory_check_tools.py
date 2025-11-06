@@ -6,10 +6,7 @@ from wayflowcore.tools import tool
 from wayflowcore.executors.executionstatus import UserMessageRequestStatus
 from typing import List
 
-from src.common.config import (
-    PROJECT_ROOT, JDBC_DRIVER_CLASS_NAME, JDBC_URL, AUTH_TYPE,
-    OCI_CONFIG_FILE, CONFIG_PROFILE
-)
+from src.common.config import *
 
 # ---------- child worker (runs JPype + JDBC in separate process) ----------
 def _jdbc_worker(item_numbers: List[str], item_required_quantities: List[int], bu: str, q) -> None:

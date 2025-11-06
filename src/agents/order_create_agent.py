@@ -7,23 +7,29 @@ from wayflowcore.executors.executionstatus import (
 from wayflowcore.tools import tool
 from wayflowcore.models import OCIGenAIModel
 from src.llm.oci_genai import initialize_llm
-from src.tools.aidp_fdi_inventory_check_tools import aidp_fdi_inventory_check
+from src.tools.order_create_tools import create_order
 
 import re
 from typing import List, Dict, Any
 
-def inventory_check_agent(user_msg: str):
+def order_create_intake(user_msg: str):
 
     llm = initialize_llm()
 
     assistant = Agent(
-        custom_instruction="Check item inventory for the provided list of item_numbers, list of item_required_quantity, and bu. Respond ONLY JSON with proper line breaks",
-        tools=[aidp_fdi_inventory_check], 
+        custom_instruction="Create Order in Fusion. Respond ONLY JSON with proper line breaks",
+        tools=[create_order],
         llm=llm
     )
 
+    # Test Payload
+    payload = {
+        "title": "foo",
+        "body": "bar",
+        "userId": 1,
+    }
+
     conversation = assistant.start_conversation()
-    #user_msg = f"item_numbers: {item_numbers}\nitem_required_quantity: {item_required_quantity}\nbu: {bu}\nquestion: {question}"
     conversation.append_user_message(user_msg)
     status = conversation.execute()
 
@@ -36,11 +42,14 @@ def inventory_check_agent(user_msg: str):
     return assistant_reply.content
 
 def unit_test():
-    item_numbers = ['AS6647431', 'AS6647432', 'AS6647433']
-    item_required_quantity = [2000, 1000, 5000]
-    bu = "US1 Business Unit"
-    user_msg = f"Return per-item availability for item_numbers: {item_numbers}, item_required_quantity: {item_required_quantity} and bu: {bu}"
-    response = inventory_check_agent(user_msg)
+    # Test Payload
+    payload = {
+        "title": "foo",
+        "body": "bar",
+        "userId": 1,
+    }
+    user_msg = f"payload: {payload}"
+    response = order_create_intake(user_msg)
     print(f"Agent Output : {response}")
 
 if __name__ == "__main__":

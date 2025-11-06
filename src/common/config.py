@@ -31,6 +31,13 @@ MODEL_ID       			= os.getenv("OCI_GENAI_MODEL_ID")
 MODEL_ID_VISION       	= os.getenv("OCI_GENAI_MODEL_ID_VISION")
 PROVIDER       			= os.getenv("PROVIDER")
 
+#────────────────────────────────────────────────────────
+# Fusion configuration
+# ───────────────────────────────────────────────────────
+API_USER 	 	  		= os.getenv("API_USER")
+API_PASS       			= os.getenv("API_PASS")
+API_URL       			= os.getenv("API_URL")
+
 
 
 
