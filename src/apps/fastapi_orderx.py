@@ -91,40 +91,46 @@ async def create_sales_order(payload: Dict = Body(...)):
             }
         )
     
-from pydantic import BaseModel, Field
 
+from pydantic import BaseModel, EmailStr
+import traceback, json
+# --- models ---
 class SalesEmailRequest(BaseModel):
-    saas_transaction_id: str | int = Field(..., description="Sales order id")
-    final_message: str = Field(..., description="Email body content")
+    saas_transaction_id: str | int
+    email_to: EmailStr = "ops@example.com"
+    subject: str | None = None           # optional; we’ll default if missing
+    final_message: str | None = None     # prefer this for the body
+    note: str | None = None              # fallback for body
 
-class SalesEmailResponse(BaseModel):
-    email_string: str
-    final_message_email: str
 
 @app.post("/orders/email")
 async def email_sales_order(payload: SalesEmailRequest):
     """
-    Email the status of the Sales Order to a CSR
+    Email the status of the Sales Order to a CSR via create_order_agent's email tool.
     """
     try:
-        
-        input_prompt = (
-            f"Send an email to ops@example.com: "
-            f"subject: Sales Order Status for orderid : {SalesEmailRequest.saas_transaction_id}, "
-            f"body: {SalesEmailResponse.final_message}"
+        subject = payload.subject or f"Sales Order Status for orderid: {payload.saas_transaction_id}"
+        # prefer final_message; fallback to note; final fallback generic line
+        body = (
+            payload.final_message
+            or payload.note
+            or f"Status update for order {payload.saas_transaction_id}."
         )
+
+        # Build the exact string your agent expects
+        input_prompt = (
+            "send an email -\n"
+            f"to: {payload.email_to}\n"
+            f"subject: {subject}\n"
+            f"body: {body}"
+        )
+
         response = order_create_agent(input_prompt)
-        print(response)
-
         return JSONResponse(content={"final_answer": response})
-    except Exception as e:
-        # Print the full stack trace to stdout/logs
-        traceback.print_exc()
 
+    except Exception as e:
+        traceback.print_exc()
         return JSONResponse(
             status_code=500,
-            content={
-                "error": str(e),
-                "traceback": traceback.format_exc()
-            }
+            content={"error": str(e), "traceback": traceback.format_exc()},
         )
