@@ -25,7 +25,6 @@ async def ask_agent_from_image(
         # Build the prompt
         input_prompt = f"{str(temp_path)}   \n{question}"
         response = order_intake_agent(input_prompt)
-        #response = await agent_image2text.run_async(input_prompt, max_steps=5)
         print(response)
 
     

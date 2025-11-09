@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 # ─── OCI LLM ──────────────────────────────────────────
-from langchain_community.chat_models import ChatOCIGenAI
+from langchain_oci import ChatOCIGenAI
 from dotenv import load_dotenv
 import base64
 from langchain_core.messages import HumanMessage
@@ -31,6 +31,7 @@ def encode_image_as_base64(image_path):
     return encoded
 
 def test():
+    
     # Image file and question
     image_path = f"{PROJECT_ROOT}/order_inputs/orderhub_handwritten.jpg"
     question = "What is happening in this image?"

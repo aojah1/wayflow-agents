@@ -13,6 +13,8 @@ from typing import List, Dict, Any
 
 def inventory_check_agent(user_msg: str):
 
+    print("anup : ")
+    print(user_msg)
     llm = initialize_llm()
 
     assistant = Agent(

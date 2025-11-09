@@ -20,9 +20,9 @@ def order_intake_agent(user_msg: str):
     # order_intake_agent_instructions = prompt_order_intake_agent.strip()
 
     assistant = Agent(
-        custom_instruction="Get information from the file",
+        custom_instruction="Get information from the file. Don't forget to Extract the BusinessUnitId, among the others",
         tools=[voice_to_text, image_to_text], 
-        llm=llm
+        llm=llm,
     )    
 
     conversation = assistant.start_conversation()
@@ -41,12 +41,7 @@ def unit_test():
     THIS_DIR = Path(__file__).resolve()
     PROJECT_ROOT = THIS_DIR.parent.parent.parent
     file_path = f"{PROJECT_ROOT}/order_inputs/orderhub_handwritten.jpg"
-    question = (
-        "Extract all order information with this schema:\n"
-        "BillToCustomer - Name, BusinessUnit \n"
-        "OrderItems - Item: {}, Quantity: {}, RequestedDate: {}\n"
-        "Return only JSON."
-    )
+    question = "Extract all order information from the"
     user_msg = f"file_path: {file_path}\nquestion: {question}"
     
     response = order_intake_agent(user_msg)

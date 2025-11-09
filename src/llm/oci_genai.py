@@ -5,10 +5,10 @@ from wayflowcore.models import OCIGenAIModel
 from wayflowcore.agent import Agent
 from src.common.config import *
 
-print(f"AUTH_TYPE: {AUTH_TYPE}")
-print(f"MODEL_ID: {MODEL_ID}")
-print(f"ENDPOINT: {ENDPOINT}")
-print(f"COMPARTMENT_ID: {COMPARTMENT_ID}")
+# print(f"AUTH_TYPE: {AUTH_TYPE}")
+# print(f"MODEL_ID: {MODEL_ID}")
+# print(f"ENDPOINT: {ENDPOINT}")
+# print(f"COMPARTMENT_ID: {COMPARTMENT_ID}")
 
 
 def initialize_llm():
