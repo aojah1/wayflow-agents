@@ -13,7 +13,7 @@ from src.tools.speech_instruct_tools import voice_to_text
 import os
 from pathlib import Path
 
-def order_intake(user_msg: str):
+def order_intake_agent(user_msg: str):
 
     llm = initialize_llm()
 
@@ -49,7 +49,7 @@ def unit_test():
     )
     user_msg = f"file_path: {file_path}\nquestion: {question}"
     
-    response = order_intake(user_msg)
+    response = order_intake_agent(user_msg)
     print(f"---\nAgent Output : {response}\n---" )
 
 

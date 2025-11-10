@@ -1,4 +1,4 @@
-# src/tools/aidp_fdi_inventory_check_tools.py
+# src/tools/aidp_inventory_check_tool.py
 import os
 from multiprocessing import Process, Queue
 from wayflowcore.agent import Agent
@@ -6,7 +6,10 @@ from wayflowcore.tools import tool
 from wayflowcore.executors.executionstatus import UserMessageRequestStatus
 from typing import List
 
-from src.common.config import *
+from src.common.config import (
+    PROJECT_ROOT, JDBC_DRIVER_CLASS_NAME, JDBC_URL, AUTH_TYPE,
+    OCI_CONFIG_FILE, CONFIG_PROFILE
+)
 
 # ---------- child worker (runs JPype + JDBC in separate process) ----------
 def _jdbc_worker(item_numbers: List[str], item_required_quantities: List[int], bu: str, q) -> None:
@@ -123,6 +126,7 @@ def _jdbc_worker(item_numbers: List[str], item_required_quantities: List[int], b
         except Exception:
             pass
 
+
 # ---------- tool wrapper (calls child process, then kills it) ----------
 @tool(description_mode="only_docstring")
 def aidp_fdi_inventory_check(
@@ -131,19 +135,10 @@ def aidp_fdi_inventory_check(
     bu: str,
     question: str,
 ) -> str:
-    """Check item availability in FDI using AIDP for a LIST of item_numbers.
-
-    Parameters
-    ----------
-    :param item_numbers: List[str]
-    :param item_required_quantity: List[int]
-    :param bu: str
-    :param question: 
-
-    Returns
-    -------
-        a JSON array with: [{ "item_number": "...", "available_quantity": int, "required_quantity": int, "is_available": "Yes|No"}]
-
+    """
+    Check item availability in FDI using AIDP for a LIST of item_numbers.
+    Returns a JSON array with:
+      [{ "item_number": "...", "available_quantity": int, "required_quantity": int, "is_available": "Yes|No", "business_unit": "..." }, ...]
     """
     q = Queue()
     p = Process(target=_jdbc_worker, args=(item_numbers, item_required_quantity, bu, q), daemon=False)
@@ -167,7 +162,7 @@ def test():
     llm = initialize_llm()
 
     assistant = Agent(
-        custom_instruction="Check item inventory for the provided list of item_numbers, list of item_required_quantity, and bu. Respond ONLY JSON with proper line breaks",
+        custom_instruction="Check item inventory",
         tools=[aidp_fdi_inventory_check],
         llm=llm
     )
@@ -188,10 +183,9 @@ def test():
 
     print("Final Output")
     if isinstance(status, UserMessageRequestStatus):
-        print(f"---\nJSON >>> \n {convo.get_last_message().content}\n---")
+        print(f"---\nResult >>> {convo.get_last_message().content}\n---")
     else:
-        assistant_reply = f"Invalid execution status, expected UserMessageRequestStatus, received {type(status)}"
-        print(f"Invalid execution status, expected UserMessageRequestStatus, received {type(status)}")
+        print(f"---\nResult >>> {convo.get_last_message().content}\n---")
 
 if __name__ == "__main__":
     test()

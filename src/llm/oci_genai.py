@@ -5,6 +5,12 @@ from wayflowcore.models import OCIGenAIModel
 from wayflowcore.agent import Agent
 from src.common.config import *
 
+print(f"AUTH_TYPE: {AUTH_TYPE}")
+print(f"MODEL_ID: {MODEL_ID}")
+print(f"ENDPOINT: {ENDPOINT}")
+print(f"COMPARTMENT_ID: {COMPARTMENT_ID}")
+
+
 def initialize_llm():
     try:
         return OCIGenAIModel(
@@ -16,6 +22,9 @@ def initialize_llm():
     except Exception as e:
         print(f"Error initializing LLM: {e}")
         raise
+
+
+
 
 def test():
 

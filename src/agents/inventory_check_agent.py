@@ -1,4 +1,3 @@
-
 from wayflowcore.agent import Agent
 from wayflowcore.executors.executionstatus import (
     FinishedStatus,
@@ -41,7 +40,9 @@ def unit_test():
     bu = "US1 Business Unit"
     user_msg = f"Return per-item availability for item_numbers: {item_numbers}, item_required_quantity: {item_required_quantity} and bu: {bu}"
     response = inventory_check_agent(user_msg)
-    print(f"Agent Output : {response}")
+    print(f"Agent Output : {response}" )
+
+
 
 if __name__ == "__main__":
     unit_test()

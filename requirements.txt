@@ -5,4 +5,6 @@ oci
 langchain_community
 jaydebeapi
 fastapi
-uvicorn
+fastmcp>=2.5,<2.6
+uvicorn>=0.30.0
+pydantic
