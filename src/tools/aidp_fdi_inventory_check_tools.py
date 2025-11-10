@@ -128,7 +128,6 @@ def _jdbc_worker(item_numbers: List[str], item_required_quantities: List[int], b
 
 
 # ---------- tool wrapper (calls child process, then kills it) ----------
-# ---------- tool wrapper (calls child process, then kills it) ----------
 @tool(description_mode="only_docstring")
 def aidp_fdi_inventory_check(
     item_numbers: List[str],

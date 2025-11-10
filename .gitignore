@@ -3,6 +3,9 @@
 
 # Ignore Config Files
 /config/env
+/config/.env
 
 # Ignore Temp Files
 __pycache__/
+
+*.DS_Store
